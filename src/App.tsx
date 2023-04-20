@@ -9,7 +9,7 @@ function App() {
   const [todoId, setTodoId] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const baseURL = `https://nodejs-todo-app-apis.onrender.com/`;
+  const baseURL = `https://nodejs-todo-app-apis.onrender.com`;
 
   useEffect(() => {
     getTodos();
