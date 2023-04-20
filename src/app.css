@@ -1,0 +1,62 @@
+/* .main {
+    height: 100vh;
+} */
+
+.wrapper {
+    /* display: flex;
+    flex-direction: column; */
+    width: 100%;
+    /* align-items: center; */
+    /* width: 80%;
+    margin: auto; */
+    /* height: inherit; */
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    gap: 12px;
+    margin: 30px auto;
+    width: 50%;
+}
+
+.input-field {
+    width: 50%;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid black;
+}
+
+.btn {
+    padding: 5px 10px;
+    color: white;
+    background: black;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    background: black;
+    width: 50%;
+    margin: auto;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.todo-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon {
+    cursor: pointer;
+}
