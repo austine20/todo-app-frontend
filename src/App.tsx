@@ -2,12 +2,15 @@ import "./app.css";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Loader from "./Loader/Loader";
 
 function App() {
   const [todo, setTodo] = useState<Todo[]>([]);
   const [text, setText] = useState("");
   const [todoId, setTodoId] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
+  const [error, setError] = useState("");
+  const [status, setStatus] = useState("idle");
 
   const baseURL = `https://nodejs-todo-app-apis.onrender.com`;
 
@@ -26,14 +29,18 @@ function App() {
   };
 
   const addTodo = async () => {
-    // const payload = {
-    //   text: "",
-    // };
-    await axios.post(`${baseURL}/create`, { text }).then((data) => {
-      console.log(data);
-      setText("");
-      getTodos();
-    });
+    if (text === "") {
+      setError("Please, Add a Todo!!!");
+    } else {
+      setStatus("loading");
+      await axios.post(`${baseURL}/create`, { text }).then((data) => {
+        console.log(data);
+        setError("");
+        setText("");
+        getTodos();
+        setStatus("fail");
+      });
+    }
   };
 
   const updateTodo = async () => {
@@ -92,22 +99,31 @@ function App() {
             {isUpdating ? "Update" : "Add"}
           </button>
         </div>
+        <p style={{ color: "red", textAlign: "center", marginBottom: "20px" }}>
+          {error}
+        </p>
 
-        {todo.map((item) => (
-          <div key={item._id} className="todo-item">
-            <p>{item.text}</p>
-            <div className="todo-cta">
-              <AiFillEdit
-                className="icon"
-                onClick={() => updateList(item._id, item.text)}
-              />
-              <AiFillDelete
-                className="icon"
-                onClick={() => deleteTodo(item._id)}
-              />
-            </div>
-          </div>
-        ))}
+        {status === "loading" ? (
+          <Loader />
+        ) : (
+          <>
+            {todo.map((item) => (
+              <div key={item._id} className="todo-item">
+                <p>{item.text}</p>
+                <div className="todo-cta">
+                  <AiFillEdit
+                    className="icon"
+                    onClick={() => updateList(item._id, item.text)}
+                  />
+                  <AiFillDelete
+                    className="icon"
+                    onClick={() => deleteTodo(item._id)}
+                  />
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </section>
     </main>
   );
